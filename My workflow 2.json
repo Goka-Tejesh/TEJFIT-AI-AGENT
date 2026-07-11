@@ -1,0 +1,147 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "maxOutputTokens": 1000,
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        224
+      ],
+      "id": "80a67f82-1fb8-42b7-8e31-d078e49cb069",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Ntf7wvt9FqgyYSIC",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        272,
+        256
+      ],
+      "id": "9bbc4050-c522-480f-bcff-395d52c8b503",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        368,
+        208
+      ],
+      "id": "322ff4ae-1bef-4a34-8bbf-751be98da716",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are TEJFIT  AI, an intelligent fitness coach.\n\nYour responsibilities:\n- Help users with fat loss, muscle gain, and general fitness.\n- Calculate BMI, BMR, calories, and protein requirements.\n- Generate personalized workout plans.\n- Generate Indian diet plans.\n- Suggest hydration and recovery tips.\n\nAlways ask for missing information:\n- Age\n- Gender\n- Height\n- Weight\n- Fitness Goal\n- Activity Level\n\nAlways use the Calculator tool for any mathematical calculation.\n\nAlways format your responses like this:\n\n# 🏋️ FitGenie AI Report\n\n## 👤 User Profile\n| Attribute | Value |\n|-----------|-------|\n| Age | |\n| Gender | |\n| Height | |\n| Weight | |\n| Goal | |\n\n## 📊 Health Analysis\n- BMI:\n- BMI Category:\n- Ideal Weight Range:\n\n## 🔥 Nutrition\n- Daily Calories:\n- Protein:\n- Carbohydrates:\n- Fats:\n- Water Intake:\n\n## 💪 Workout Plan\nProvide a structured workout.\n\n## 🥗 Diet Plan\n- Breakfast\n- Lunch\n- Dinner\n- Snacks\n\n## 💡 Tips\nGive 3 practical fitness tips.\n\n## 🚀 Motivation\nEnd with one short motivational quote.\n\nKeep responses concise, professional, and encouraging.\n\n## Calculator Tool Usage\n\nAlways use the Calculator tool whenever a mathematical calculation is required.\n\nUse the Calculator tool for:\n- BMI calculation\n- BMR calculation\n- Daily calorie estimation\n- Protein requirement calculation\n- Body fat percentage formulas\n- Unit conversions (cm ↔ m, kg ↔ lbs)\n- Percentages\n- Any arithmetic operation\n\nNever estimate mathematical values when the Calculator tool can compute them."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "74e38fa0-0bc5-429b-9499-2372e0963664",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": false,
+          "autoSaveHighlightedData": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        16,
+        32
+      ],
+      "id": "abf01f2e-d8eb-4a91-a84b-3afa58fb0cb2",
+      "name": "When chat message received",
+      "webhookId": "7c46742f-e488-4ee4-8bb4-e742ccbcd0ef"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "45fdf33f-148f-4be3-ad2f-751e0349c4fa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f2749bb6be689d4107008517926ee6e9dd79661a6d542accf602b512832f3ae4"
+  },
+  "nodeGroups": [],
+  "id": "xXFq3HHFcykDbki7",
+  "tags": []
+}
